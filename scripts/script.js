@@ -23,6 +23,7 @@ startButton.onclick = function(){
         clockText.innerHTML = `${min}:${sec}`;
     
     }
+    startButton.disabled = true;
 }
 
 
