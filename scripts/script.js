@@ -53,6 +53,7 @@ saveButton.onclick = function (){
         
     }
     if (userStudyTime != undefined && userBreakTime!= undefined){
+        console.log("here");
         studyTime = parseInt(userStudyTime);
         breakTime = parseInt(userBreakTime);
        
@@ -128,6 +129,10 @@ function initializeClock() {
     startButton.disabled = true;
     settingButton.disabled = true;
     // this checks which time to use
+    let userStudyTime = document.getElementById("user-study-time").value;
+    let userBreakTime = document.getElementById("user-break-time").value;
+    studyTime = parseInt(userStudyTime);
+    breakTime = parseInt(userBreakTime);
     if (changeColor===false && stopButton.disabled===false){
         
         time = getSeconds(studyTime);
