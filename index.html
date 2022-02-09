@@ -22,12 +22,13 @@
                     <h1 id="study-action">Study!!!</h1>
                 </div>
                 <div class="col-sm-auto offset-md-7">
-                    <input type="image" src="images/logo.png" id="logo"></h1>
+                    <!-- <input type="image" src="images/logo.png" id="logo"></h1> -->
+                    <button id="btn-settings" class ="btn btn-primary btn-md" data-bs-toggle="modal" data-bs-target="#exampleModal">EDIT</button>
                 </div>
             </div>
             <div class="row justify-content-center">
                 <div class="col-lg-3">      
-                    <h1 id="clock">59:59</h1>              
+                    <h1 id="clock">--:--</h1>              
                 </div>
             </div>
             <div class="row justify-content-center">
@@ -39,6 +40,32 @@
 
         </div>
     </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content clock-settings">
+        <div class="modal-header">
+          <h5 class="modal-title" id="ModalLabel">Timer Settings (Minutes)</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="input-group input-group-sm mb-3">
+                <span class="input-group-text modal-btn"  >Study Time</span>
+                <input type="text" class="form-control" id="user-study-time" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="60">
+            </div>
+
+            <div class="input-group input-group-sm mb-3">
+                <span class="input-group-text modal-btn" >Break Time</span>
+                <input type="text" class="form-control" id="user-break-time" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="15">
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" id="save-btn" data-bs-dismiss="modal">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
     
 </body>
 

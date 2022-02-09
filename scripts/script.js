@@ -1,84 +1,202 @@
+// buttons
 let stopButton = document.getElementById("btn-stop");
 let studyText = document.getElementById("study-action");
 let clockText = document.getElementById("clock")
 let bigBox = document.getElementById("big-box");
-let logo = document.getElementById("logo");
+let settingButton = document.getElementById("btn-settings");
 let startButton = document.getElementById("btn-start");
+let saveButton = document.getElementById("save-btn");
+//constants 
 
-let timeSecond = 3600;
+
+let studyTime;
+let breakTime;
+let time; 
+let changeColor = false;
+let startBtn = false;
+let clock;
+
+
 
 
 startButton.onclick = function(){
-    const countDown  = setInterval(()=>{
-        timeSecond--;
-        displayTime(timeSecond);
-        if(timeSecond <= 0 || timeSecond < 1){
-            clearInterval(countDown);
-        }
-    },1000);
-    
-    function displayTime(second){
-        const min = Math.floor (second/ 60);
-        const sec = Math.floor(second % 60);
-        clockText.innerHTML = `${min}:${sec}`;
-    
-    }
-    startButton.disabled = true;
-}
+ 
+    if(startBtn === false){
+        initializeClock();
+        
+    }      
+
+};
 
 
-
-
-
-let bodyColor = false;
 
 stopButton.onclick = function(){
-    if(bodyColor === false){
-        document.body.style.backgroundColor = "#1C2B2D";
-        
-        studyText.innerHTML = "BREAK!!!";
-        studyText.style.borderColor = "#99A8B2"
-        studyText.style.color = "#99A8B2"
 
-        clockText.innerHTML ="10:00";
-        clockText.style.borderColor = "#99A8B2";
-        clockText.style.color ="#99A8B2";
-
-        bigBox.style.backgroundColor = "#1F6F8B";
-
-        logo.src = "images/logo-2.png";
-
-        startButton.style.backgroundColor = "#99A8B2";
-        startButton.style.borderColor = "#99A8B2";
-
-        stopButton.style.backgroundColor = "#C84B31";
-        stopButton.style.borderColor = "#C84B31";
+        stopButton.disabled = true;
+        clearInterval(clock)
+        startButton.disabled = false;
 
 
+}
 
-        bodyColor = true;
-    }else{
-        document.body.style.backgroundColor = "";
-        
-        studyText.innerHTML = "STUDY!!!"
-        studyText.style.borderColor = ""
-        studyText.style.color = ""
-
-        clockText.innerHTML ="59:00";
-        clockText.style.borderColor = "";
-        clockText.style.color ="";
-
-        bigBox.style.backgroundColor = "";
-        logo.src = "images/logo.png";
-
-        startButton.style.backgroundColor = "";
-        startButton.style.borderColor = "";
-
-        stopButton.style.backgroundColor = "";
-        stopButton.style.borderColor = "";
-        bodyColor = false;
-    }
- 
-
+settingButton.onclick = function (){
     
 }
+saveButton.onclick = function (){
+    let clockString='';
+    let userStudyTime = document.getElementById("user-study-time").value;
+    let userBreakTime = document.getElementById("user-break-time").value;
+    
+    console.log(userStudyTime);
+    if (userStudyTime === "" || userBreakTime=== ""){
+        alert("cannot be empty");  
+        
+    }
+    if (userStudyTime != undefined && userBreakTime!= undefined){
+        studyTime = parseInt(userStudyTime);
+        breakTime = parseInt(userBreakTime);
+       
+    }
+
+
+    if (studyTime.toString().length ===1 ){
+        clockString="0"+studyTime+":00";
+        clockText.innerHTML = clockString;
+    }
+    
+
+}
+
+
+
+
+function breakColor(){
+
+    document.body.style.backgroundColor = "#1C2B2D";
+        
+    studyText.innerHTML = "BREAK!!!";
+    studyText.style.borderColor = "#99A8B2"
+    studyText.style.color = "#99A8B2"
+
+    clockText.innerHTML =breakTime+":00";
+    clockText.style.borderColor = "#99A8B2";
+    clockText.style.color ="#99A8B2";
+
+    bigBox.style.backgroundColor = "#1F6F8B";
+
+
+    startButton.style.backgroundColor = "#99A8B2";
+    startButton.style.borderColor = "#99A8B2";
+
+    stopButton.style.backgroundColor = "#C84B31";
+    stopButton.style.borderColor = "#C84B31";
+    settingButton.style.backgroundColor = "#99A8B2";
+    settingButton.style.borderColor= "#99A8B2";
+    
+}
+
+
+
+
+
+function studyColor(){
+    document.body.style.backgroundColor = "";
+        
+    studyText.innerHTML = "STUDY!!!"
+    studyText.style.borderColor = ""
+    studyText.style.color = ""
+
+    clockText.innerHTML =studyTime+":00";
+    clockText.style.borderColor = "";
+    clockText.style.color ="";
+
+    bigBox.style.backgroundColor = "";
+
+    startButton.style.backgroundColor = "";
+    startButton.style.borderColor = "";
+
+    stopButton.style.backgroundColor = "";
+    stopButton.style.borderColor = "";
+    settingButton.style.backgroundColor = "";
+    settingButton.style.borderColor= "";
+}
+
+
+function initializeClock() {
+    
+    clock = setInterval(getTimeRemaining,1000);
+    startButton.disabled = true;
+    settingButton.disabled = true;
+    // this checks which time to use
+    if (changeColor===false && stopButton.disabled===false){
+        
+        time = getSeconds(studyTime);
+        console.log(time);
+    }
+    if(changeColor===true && stopButton.disabled===false){
+        time = getSeconds(breakTime);
+    }
+
+    if (changeColor === false && stopButton.disabled===true){
+        console.log(time);
+        stopButton.disabled = false;
+    }
+    if (changeColor === true && stopButton.disabled===true){
+        stopButton.disabled = false;
+    }
+
+    // counter 
+    function getTimeRemaining(){
+        
+
+        time = time -1;
+
+        clockText.innerHTML = getMin(time);
+        console.log("initClock: "+time);
+        if (time <= 0 && changeColor === false){
+            clearInterval(clock);
+            breakColor();
+            time=breakTime;
+            changeColor = true
+            startButton.disabled = false;
+            settingButton.disabled = false;
+        }
+        if(time<=0 && changeColor === true){
+            clearInterval(clock);
+            studyColor();
+            time=studyTime;
+            changeColor = false
+            startButton.disabled = false;
+            settingButton.disabled = false;
+        }
+        
+    }
+
+}
+function getSeconds(time){
+    let sec = time * 60;
+    return sec;
+}
+function getMin(time){
+    let min = Math.floor(time/60);
+    let sec = (time%60).toFixed(0);
+    let clockString;
+
+    if (min.toString().length ===1 && sec.toString().length ===1){
+        clockString="0"+min+":0"+sec;
+    }
+    else if (min.toString().length ===1 && sec.toString().length !=1){
+        clockString="0"+min+":"+sec;
+    }
+
+    else if (sec.toString().length ===1){
+        clockString = min + ":0"+sec;
+    }else{
+       clockString = min + ":"+sec;
+    }
+    
+    return clockString;
+}
+
+
+

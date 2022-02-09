@@ -9,6 +9,22 @@ h1{
     color: white;
     background-color: blue;
 }
+
+.vertical-center {
+    min-height: 100%; 
+    min-height: 100vh; 
+    display: flex;
+    align-items: center;
+  }
+
+.clock-settings{
+    background-color: #476494;
+}
+
+.modal-btn{
+    background-color: white;
+    border-color:white;
+}
 #study-action{
     border-style: solid;
     border-color:#C84B31;
@@ -34,12 +50,6 @@ h1{
     margin-left: auto;
    
 }
-.vertical-center {
-    min-height: 100%; 
-    min-height: 100vh; 
-    display: flex;
-    align-items: center;
-  }
 
 #logo{
     padding-top: 25px;
@@ -69,3 +79,19 @@ h1{
     border-color: #99A8B2;
 
 }
+
+#btn-settings{
+    margin-top: 25px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 15px;
+    background-color: #C84B31;
+    border-color: #C84B31;
+    font-family: "digital-7";
+}
+
+#ModalLabel{
+    color: white;
+}
+
