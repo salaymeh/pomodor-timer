@@ -63,6 +63,12 @@ saveButton.onclick = function (){
     if (studyTime.toString().length ===1 ){
         clockString="0"+studyTime+":00";
         clockText.innerHTML = clockString;
+    }else{
+        clockText.innerHTML = studyTime+":00";
+    }
+    if (changeColor ===true){
+        clockText.innerHTML = breakTime+":00";
+        
     }
     
 
@@ -129,6 +135,7 @@ function initializeClock() {
     startButton.disabled = true;
     settingButton.disabled = true;
     // this checks which time to use
+    //grabs the default value;
     let userStudyTime = document.getElementById("user-study-time").value;
     let userBreakTime = document.getElementById("user-break-time").value;
     studyTime = parseInt(userStudyTime);
